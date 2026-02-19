@@ -56,25 +56,25 @@ function GradingModal({ submission, onClose, onGraded }: { submission: PendingSu
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                               <div>
                                     <label className="block text-sm font-medium mb-1">Nota (0-10)</label>
-                                    <input type="number" step="0.1" {...register("grade")} className="w-full p-2 border rounded" autoFocus />
+                                    <input type="number" step="0.1" {...register("grade")} disabled={gradeMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50 disabled:cursor-not-allowed" autoFocus />
                                     {errors.grade && <p className="text-red-500 text-sm">{errors.grade.message}</p>}
                               </div>
 
                               <div>
                                     <label className="block text-sm font-medium mb-1">Feedback</label>
-                                    <textarea {...register("feedback")} className="w-full p-2 border rounded" rows={3} placeholder="Escreva seu feedback aqui..." />
+                                    <textarea {...register("feedback")} disabled={gradeMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50 disabled:cursor-not-allowed" rows={3} placeholder="Escreva seu feedback aqui..." />
                                     {errors.feedback && <p className="text-red-500 text-sm">{errors.feedback.message}</p>}
                               </div>
 
                               <div className="flex justify-end gap-2 mt-6">
-                                    <button type="button" onClick={onClose} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Cancelar</button>
+                                    <button type="button" onClick={onClose} disabled={gradeMutation.isPending} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded disabled:opacity-50 disabled:cursor-not-allowed">Cancelar</button>
                                     <button
                                           type="submit"
                                           disabled={gradeMutation.isPending}
                                           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
                                     >
                                           {gradeMutation.isPending && <Loader2 className="animate-spin w-4 h-4" />}
-                                          Enviar Correção
+                                          {gradeMutation.isPending ? 'Salvando...' : 'Enviar Correção'}
                                     </button>
                               </div>
                         </form>

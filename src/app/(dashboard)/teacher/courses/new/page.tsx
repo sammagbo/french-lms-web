@@ -64,24 +64,24 @@ function Step1CourseDetails({ onNext }: { onNext: (courseId: string) => void }) 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
                   <div>
                         <label className="block text-sm font-medium mb-1">Título do Curso</label>
-                        <input {...register("title")} className="w-full p-2 border rounded" placeholder="Ex: Francês Avançado" />
+                        <input {...register("title")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: Francês Avançado" />
                         {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
                   </div>
 
                   <div>
                         <label className="block text-sm font-medium mb-1">Slug (URL amigável)</label>
-                        <input {...register("slug")} className="w-full p-2 border rounded" placeholder="Ex: frances-avancado" />
+                        <input {...register("slug")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: frances-avancado" />
                         {errors.slug && <p className="text-red-500 text-sm">{errors.slug.message}</p>}
                   </div>
 
                   <div>
                         <label className="block text-sm font-medium mb-1">Descrição</label>
-                        <textarea {...register("description")} className="w-full p-2 border rounded" rows={3} />
+                        <textarea {...register("description")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" rows={3} />
                   </div>
 
                   <div>
                         <label className="block text-sm font-medium mb-1">Preço (R$)</label>
-                        <input type="number" step="0.01" {...register("price")} className="w-full p-2 border rounded" />
+                        <input type="number" step="0.01" {...register("price")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" />
                         {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
                   </div>
 
@@ -118,11 +118,11 @@ function Step2Modules({ courseId, onNext }: { courseId: string, onNext: (moduleI
                   <form onSubmit={handleSubmit((data) => createModuleMutation.mutate(data))} className="space-y-4 p-4 border rounded bg-gray-50">
                         <div>
                               <label className="block text-sm font-medium mb-1">Título do Módulo</label>
-                              <input {...register("title")} className="w-full p-2 border rounded" placeholder="Ex: Módulo 1 - Introdução" />
+                              <input {...register("title")} disabled={createModuleMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: Módulo 1 - Introdução" />
                         </div>
                         <div>
                               <label className="block text-sm font-medium mb-1">Descrição (Opcional)</label>
-                              <input {...register("description")} className="w-full p-2 border rounded" />
+                              <input {...register("description")} disabled={createModuleMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" />
                         </div>
                         <button type="submit" disabled={createModuleMutation.isPending} className="bg-green-600 text-white px-3 py-1.5 rounded text-sm hover:bg-green-700 disabled:opacity-50">
                               {createModuleMutation.isPending ? "Salvando..." : "Adicionar Módulo"}
@@ -180,15 +180,15 @@ function Step3Lessons({ courseId }: { courseId: string }) {
                               </div>
                               <div>
                                     <label className="block text-sm font-medium mb-1">Título da Aula</label>
-                                    <input {...register("title")} className="w-full p-2 border rounded" placeholder="Ex: Aula 1 - Olá Mundo" />
+                                    <input {...register("title")} disabled={createLessonMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: Aula 1 - Olá Mundo" />
                               </div>
                               <div>
                                     <label className="block text-sm font-medium mb-1">URL do Vídeo (YouTube)</label>
-                                    <input {...register("videoUrl")} className="w-full p-2 border rounded" placeholder="https://..." />
+                                    <input {...register("videoUrl")} disabled={createLessonMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="https://..." />
                               </div>
                               <div>
                                     <label className="block text-sm font-medium mb-1">Conteúdo (Texto)</label>
-                                    <textarea {...register("content")} className="w-full p-2 border rounded" rows={3} />
+                                    <textarea {...register("content")} disabled={createLessonMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" rows={3} />
                               </div>
                               <button type="submit" disabled={createLessonMutation.isPending} className="bg-purple-600 text-white px-3 py-1.5 rounded text-sm hover:bg-purple-700 disabled:opacity-50 flex items-center gap-2 justify-center w-full">
                                     {createLessonMutation.isPending && <Loader2 className="animate-spin w-4 h-4" />}

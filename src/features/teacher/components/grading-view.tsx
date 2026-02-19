@@ -122,7 +122,8 @@ export function GradingView({ submission, onClose }: GradingViewProps) {
                                                 type="number"
                                                 step="0.1"
                                                 {...register("grade")}
-                                                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-bold"
+                                                disabled={gradeMutation.isPending}
+                                                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed"
                                                 placeholder="0.0"
                                           />
                                           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">/ 10</span>
@@ -134,7 +135,8 @@ export function GradingView({ submission, onClose }: GradingViewProps) {
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Comentários e Correções</label>
                                     <textarea
                                           {...register("feedback")}
-                                          className="flex-1 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                                          disabled={gradeMutation.isPending}
+                                          className="flex-1 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                                           placeholder="Escreva aqui seu feedback detalhado para o aluno..."
                                     ></textarea>
                                     {errors.feedback && <p className="text-red-500 text-sm mt-1">{errors.feedback.message}</p>}
@@ -144,7 +146,8 @@ export function GradingView({ submission, onClose }: GradingViewProps) {
                                     <button
                                           type="button"
                                           onClick={onClose}
-                                          className="flex-1 px-4 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
+                                          disabled={gradeMutation.isPending}
+                                          className="flex-1 px-4 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                           Cancelar
                                     </button>
@@ -154,7 +157,7 @@ export function GradingView({ submission, onClose }: GradingViewProps) {
                                           className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium shadow-sm flex items-center justify-center gap-2 transition-colors"
                                     >
                                           {gradeMutation.isPending && <Loader2 className="animate-spin w-5 h-5" />}
-                                          Enviar Correção
+                                          {gradeMutation.isPending ? 'Salvando...' : 'Enviar Correção'}
                                     </button>
                               </div>
                         </form>
