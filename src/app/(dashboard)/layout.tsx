@@ -17,12 +17,12 @@ export default function DashboardLayout({
                               </div>
                               <nav className="flex-1 overflow-y-auto p-4 space-y-2">
                                     {/* Navigation Items would go here */}
-                                    <Link href="/dashboard" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Dashboard</Link>
-                                    <Link href="/teacher/courses" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Courses</Link>
-                                    <Link href="/teacher/courses/new" className="block px-4 py-2 text-blue-600 bg-blue-50 font-medium rounded-md">+ New Course</Link>
-                                    <Link href="/teacher/inbox" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Inbox</Link>
-                                    <div className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md cursor-pointer">Community</div>
-                                    <div className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md cursor-pointer">Settings</div>
+                                    <Link href="/dashboard" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Início</Link>
+                                    <Link href="/teacher/courses" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Cursos</Link>
+                                    <Link href="/teacher/courses/new" className="block px-4 py-2 text-blue-600 bg-blue-50 font-medium rounded-md">+ Novo Curso</Link>
+                                    <Link href="/teacher/inbox" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Mensagens</Link>
+                                    <div className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md cursor-pointer">Comunidade</div>
+                                    <div className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md cursor-pointer">Configurações</div>
                               </nav>
                         </aside>
 

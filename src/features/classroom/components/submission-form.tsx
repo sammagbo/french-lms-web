@@ -97,15 +97,15 @@ export function SubmissionForm({ activityId, currentStatus, lessonId }: Submissi
                               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                     <div>
                                           <label htmlFor="textContent" className="block text-sm font-medium text-gray-700 mb-1">
-                                                Texto da Resposta
+                                                Sua Resposta
                                           </label>
                                           <textarea
                                                 id="textContent"
                                                 rows={4}
                                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
-                                                placeholder="Escreva sua resposta aqui..."
+                                                placeholder="Escreva sua resposta ou cole o link aqui..."
                                                 disabled={isLoading}
-                                                {...register('textContent', { required: 'Digite uma resposta.' })}
+                                                {...register('textContent', { required: 'Digite uma resposta para enviar.' })}
                                           />
                                           {errors.textContent && (
                                                 <p className="mt-1 text-sm text-red-600">{errors.textContent.message}</p>

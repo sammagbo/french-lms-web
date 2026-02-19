@@ -61,7 +61,7 @@ export function RegisterForm() {
                                           "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border",
                                           errors.fullName && "border-red-500 focus:border-red-500 focus:ring-red-500"
                                     )}
-                                    placeholder="Seu Nome"
+                                    placeholder="Seu Nome Completo"
                                     {...register('fullName')}
                               />
                               {errors.fullName && (
