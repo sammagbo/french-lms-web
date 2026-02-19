@@ -1,30 +1,31 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BookOpen, GraduationCap, Globe, Users, ArrowRight, Play, Star } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm">
+    <div className="min-h-screen">
+      {/* Navigation — Transparent over hero */}
+      <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
               <Globe className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold text-white">
               French LMS
             </span>
           </div>
           <div className="flex items-center gap-4">
             <Link
               href="/login"
-              className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-white/80 hover:text-white transition-colors"
             >
               Entrar
             </Link>
             <Link
               href="/login"
-              className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5"
+              className="text-sm font-semibold text-blue-700 bg-white px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-white/25 transition-all duration-300 hover:-translate-y-0.5"
             >
               Começar Agora
             </Link>
@@ -32,90 +33,61 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 text-sm font-medium px-4 py-2 rounded-full">
-              <Star className="w-4 h-4" />
-              Plataforma #1 de Francês no Brasil
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
-              Aprenda{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Francês
-              </span>{" "}
-              de Forma Inteligente
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
-              Aulas interativas, professores qualificados e uma comunidade ativa.
-              Do iniciante ao avançado, sua jornada começa aqui.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1"
-              >
-                Começar Grátis <ArrowRight className="w-5 h-5" />
-              </Link>
-              <button className="inline-flex items-center gap-2 text-lg font-semibold text-gray-700 bg-white px-8 py-4 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
-                <Play className="w-5 h-5 text-blue-600" /> Ver Demo
-              </button>
-            </div>
-            <div className="flex items-center gap-8 pt-4">
-              <div className="text-center">
-                <p className="text-3xl font-bold text-gray-900">500+</p>
-                <p className="text-sm text-gray-500">Alunos Ativos</p>
-              </div>
-              <div className="w-px h-12 bg-gray-200" />
-              <div className="text-center">
-                <p className="text-3xl font-bold text-gray-900">50+</p>
-                <p className="text-sm text-gray-500">Aulas Disponíveis</p>
-              </div>
-              <div className="w-px h-12 bg-gray-200" />
-              <div className="text-center">
-                <p className="text-3xl font-bold text-gray-900">4.9</p>
-                <p className="text-sm text-gray-500">Avaliação ⭐</p>
-              </div>
-            </div>
-          </div>
+      {/* Hero Section — Paris Background */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <Image
+          src="/paris-hero.png"
+          alt="Paris skyline at sunset"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
-          {/* Hero Visual */}
-          <div className="relative hidden lg:block">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-3xl blur-3xl opacity-20 scale-110" />
-            <div className="relative bg-white rounded-3xl shadow-2xl p-8 space-y-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-3 h-3 rounded-full bg-red-400" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
-              </div>
-              <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-center space-y-4">
-                <Play className="w-16 h-16 text-blue-400 mx-auto" />
-                <p className="text-white/60 text-sm">Aula 01 — Les Salutations</p>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
-                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <BookOpen className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">Francês para Iniciantes</p>
-                    <p className="text-xs text-gray-500">2 Módulos • 3 Aulas</p>
-                  </div>
-                  <span className="ml-auto text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
-                    Em andamento
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-colors">
-                  <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                    <BookOpen className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">Francês Intermediário</p>
-                    <p className="text-xs text-gray-500">4 Módulos • 12 Aulas</p>
-                  </div>
-                </div>
-              </div>
+        {/* Hero Content */}
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto space-y-8">
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md text-white text-sm font-medium px-4 py-2 rounded-full border border-white/20">
+            <Star className="w-4 h-4 text-yellow-400" />
+            Plataforma #1 de Francês no Brasil
+          </div>
+          <h1 className="text-5xl lg:text-7xl font-extrabold text-white leading-tight drop-shadow-lg">
+            Aprenda{" "}
+            <span className="text-blue-400">
+              Francês
+            </span>{" "}
+            de Forma Inteligente
+          </h1>
+          <p className="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
+            Aulas interativas, professores qualificados e uma comunidade ativa.
+            Do iniciante ao avançado, sua jornada começa aqui.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1"
+            >
+              Começar Grátis <ArrowRight className="w-5 h-5" />
+            </Link>
+            <button className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-white/15 backdrop-blur-md px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/25 transition-all duration-300">
+              <Play className="w-5 h-5" /> Ver Demo
+            </button>
+          </div>
+          <div className="flex items-center gap-8 pt-4 justify-center">
+            <div className="text-center">
+              <p className="text-3xl font-bold text-white">500+</p>
+              <p className="text-sm text-white/60">Alunos Ativos</p>
+            </div>
+            <div className="w-px h-12 bg-white/20" />
+            <div className="text-center">
+              <p className="text-3xl font-bold text-white">50+</p>
+              <p className="text-sm text-white/60">Aulas Disponíveis</p>
+            </div>
+            <div className="w-px h-12 bg-white/20" />
+            <div className="text-center">
+              <p className="text-3xl font-bold text-white">4.9</p>
+              <p className="text-sm text-white/60">Avaliação ⭐</p>
             </div>
           </div>
         </div>
