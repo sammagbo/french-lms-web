@@ -1,94 +1,88 @@
 import Link from "next/link";
-import Image from "next/image";
-import { BookOpen, GraduationCap, Globe, Users, ArrowRight, Play, Star } from "lucide-react";
+import { BookOpen, GraduationCap, Globe, Users, ArrowRight, Play, Star, Sparkles } from "lucide-react";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Navigation — Transparent over hero */}
-      <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
+      <nav className="fixed top-0 w-full z-50 bg-black/30 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-              <Globe className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-red-500 rounded-lg flex items-center justify-center">
+              <span className="text-white text-lg font-bold">🗼</span>
             </div>
-            <span className="text-xl font-bold text-white">
-              French LMS
+            <span className="text-lg font-bold text-white tracking-wide">
+              French Language Learning
             </span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-6">
+            <Link href="/" className="text-sm text-white/80 hover:text-white transition-colors">Home</Link>
+            <Link href="/login" className="text-sm text-white/80 hover:text-white transition-colors">Courses</Link>
+            <a href="#contact" className="text-sm text-white/80 hover:text-white transition-colors">Contact</a>
+            <a href="#about" className="text-sm text-white/80 hover:text-white transition-colors">Blog</a>
+            <a href="#about" className="text-sm text-white/80 hover:text-white transition-colors">About Us</a>
+            <a href="#" className="text-sm text-white/80 hover:text-white transition-colors">More</a>
             <Link
               href="/login"
-              className="text-sm font-medium text-white/80 hover:text-white transition-colors"
+              className="text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg transition-all duration-300"
             >
-              Entrar
-            </Link>
-            <Link
-              href="/login"
-              className="text-sm font-semibold text-blue-700 bg-white px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-white/25 transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Começar Agora
+              Sign In
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section — Paris Background */}
+      {/* Hero Section — Paris Video Background */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <Image
-          src="/paris-hero.png"
-          alt="Paris skyline at sunset"
-          fill
-          className="object-cover"
-          priority
-        />
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/paris-hero.png"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source
+            src="https://videos.pexels.com/video-files/2519660/2519660-uhd_2560_1440_24fps.mp4"
+            type="video/mp4"
+          />
+        </video>
+
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
 
         {/* Hero Content */}
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md text-white text-sm font-medium px-4 py-2 rounded-full border border-white/20">
-            <Star className="w-4 h-4 text-yellow-400" />
-            Plataforma #1 de Francês no Brasil
-          </div>
-          <h1 className="text-5xl lg:text-7xl font-extrabold text-white leading-tight drop-shadow-lg">
-            Aprenda{" "}
-            <span className="text-blue-400">
-              Francês
-            </span>{" "}
-            de Forma Inteligente
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-emerald-400 leading-tight tracking-tight drop-shadow-2xl">
+            MASTER FRENCH
+            <br />
+            EASILY <Sparkles className="inline-block w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
           </h1>
-          <p className="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
-            Aulas interativas, professores qualificados e uma comunidade ativa.
-            Do iniciante ao avançado, sua jornada começa aqui.
+          <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
+            Learn French online with interactive lessons, expert tutors, and
+            a vibrant community. Improve step by step at your own pace.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center pt-4">
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1"
+              className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1"
             >
-              Começar Grátis <ArrowRight className="w-5 h-5" />
+              Explore Courses
             </Link>
-            <button className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-white/15 backdrop-blur-md px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/25 transition-all duration-300">
-              <Play className="w-5 h-5" /> Ver Demo
-            </button>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-2 text-lg font-semibold text-white bg-transparent px-8 py-4 rounded-xl border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all duration-300"
+            >
+              Sign Up
+            </Link>
           </div>
-          <div className="flex items-center gap-8 pt-4 justify-center">
-            <div className="text-center">
-              <p className="text-3xl font-bold text-white">500+</p>
-              <p className="text-sm text-white/60">Alunos Ativos</p>
-            </div>
-            <div className="w-px h-12 bg-white/20" />
-            <div className="text-center">
-              <p className="text-3xl font-bold text-white">50+</p>
-              <p className="text-sm text-white/60">Aulas Disponíveis</p>
-            </div>
-            <div className="w-px h-12 bg-white/20" />
-            <div className="text-center">
-              <p className="text-3xl font-bold text-white">4.9</p>
-              <p className="text-sm text-white/60">Avaliação ⭐</p>
-            </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
+            <div className="w-1.5 h-3 bg-white/60 rounded-full" />
           </div>
         </div>
       </section>
@@ -98,11 +92,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl font-bold text-gray-900">
-              Por que escolher o{" "}
+              Why Choose{" "}
               <span className="text-blue-600">French LMS</span>?
             </h2>
             <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-              Uma plataforma completa para dominar o francês, do básico ao avançado.
+              A complete platform to master French, from beginner to advanced.
             </p>
           </div>
 
@@ -110,35 +104,35 @@ export default function LandingPage() {
             {[
               {
                 icon: BookOpen,
-                title: "Aulas Estruturadas",
-                desc: "Conteúdo organizado em módulos progressivos com exercícios práticos.",
-                color: "blue",
+                title: "Structured Lessons",
+                desc: "Content organized in progressive modules with practical exercises.",
+                gradient: "from-blue-500 to-blue-600",
               },
               {
                 icon: GraduationCap,
-                title: "Professores Nativos",
-                desc: "Aprenda com professores francófonos experientes e certificados.",
-                color: "indigo",
+                title: "Native Teachers",
+                desc: "Learn from experienced and certified French-speaking teachers.",
+                gradient: "from-indigo-500 to-indigo-600",
               },
               {
                 icon: Users,
-                title: "Comunidade Ativa",
-                desc: "Participe de fóruns, grupos de estudo e eventos ao vivo.",
-                color: "violet",
+                title: "Active Community",
+                desc: "Join forums, study groups, and live events.",
+                gradient: "from-violet-500 to-violet-600",
               },
               {
                 icon: Globe,
                 title: "100% Online",
-                desc: "Estude no seu ritmo, de qualquer lugar, a qualquer hora.",
-                color: "purple",
+                desc: "Study at your own pace, anywhere, anytime.",
+                gradient: "from-purple-500 to-purple-600",
               },
             ].map((feature, i) => (
               <div
                 key={i}
                 className="group p-6 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-blue-100"
               >
-                <div className={`w-12 h-12 bg-${feature.color}-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <feature.icon className={`w-6 h-6 text-${feature.color}-600`} />
+                <div className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <feature.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {feature.title}
@@ -151,21 +145,21 @@ export default function LandingPage() {
       </section>
 
       {/* Courses Preview */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl font-bold text-gray-900">Cursos em Destaque</h2>
+            <h2 className="text-4xl font-bold text-gray-900">Featured Courses</h2>
             <p className="text-lg text-gray-500">
-              Escolha o curso ideal para o seu nível
+              Choose the ideal course for your level
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "Francês para Iniciantes", desc: "Fundamentos do idioma", price: "R$ 29,90", level: "Iniciante", color: "from-blue-500 to-blue-600" },
-              { title: "Francês Intermediário", desc: "Gramática avançada", price: "R$ 49,90", level: "Intermediário", color: "from-indigo-500 to-indigo-600" },
-              { title: "Conversação", desc: "Prática do dia-a-dia", price: "R$ 39,90", level: "Todos os Níveis", color: "from-violet-500 to-violet-600" },
-              { title: "Francês para Negócios", desc: "Mundo corporativo", price: "R$ 59,90", level: "Avançado", color: "from-purple-500 to-purple-600" },
+              { title: "French for Beginners", desc: "Language fundamentals", price: "R$ 29,90", level: "Beginner", color: "from-blue-500 to-blue-600" },
+              { title: "Intermediate French", desc: "Advanced grammar", price: "R$ 49,90", level: "Intermediate", color: "from-indigo-500 to-indigo-600" },
+              { title: "Conversation", desc: "Daily life practice", price: "R$ 39,90", level: "All Levels", color: "from-violet-500 to-violet-600" },
+              { title: "Business French", desc: "Corporate world", price: "R$ 59,90", level: "Advanced", color: "from-purple-500 to-purple-600" },
             ].map((course, i) => (
               <div
                 key={i}
@@ -192,47 +186,57 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-white" id="contact">
         <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-12 lg:p-16 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjEuNSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCBmaWxsPSJ1cmwoI2EpIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8+PC9zdmc+')] opacity-50" />
           <div className="relative space-y-6">
             <h2 className="text-3xl lg:text-4xl font-bold text-white">
-              Pronto para começar sua jornada?
+              Ready to start your journey?
             </h2>
             <p className="text-lg text-blue-100 max-w-xl mx-auto">
-              Junte-se a mais de 500 alunos que já estão transformando suas carreiras com o francês.
+              Join more than 500 students who are already transforming their careers with French.
             </p>
             <Link
               href="/login"
               className="inline-flex items-center gap-2 text-lg font-semibold bg-white text-blue-600 px-8 py-4 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              Criar Minha Conta <ArrowRight className="w-5 h-5" />
+              Create My Account <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
       </section>
 
+      {/* About Section */}
+      <section className="py-20 px-6 bg-gradient-to-br from-slate-50 to-blue-50" id="about">
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <h2 className="text-3xl font-bold text-gray-900">About Us</h2>
+          <p className="text-lg text-gray-600 leading-relaxed">
+            French Language Learning is a modern platform designed to help Brazilian students
+            master the French language. Founded by passionate educators and language enthusiasts,
+            we combine technology with proven teaching methods to deliver an immersive learning experience.
+          </p>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-12 px-6 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="py-12 px-6 bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-              <Globe className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-sm font-bold text-gray-800">French LMS</span>
+            <span className="text-xl">🗼</span>
+            <span className="text-sm font-bold">French Language Learning</span>
           </div>
           <p className="text-sm text-gray-400">
-            © 2026 French LMS. Todos os direitos reservados.
+            © 2026 French Language Learning. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/login" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
-              Entrar
+            <Link href="/login" className="text-sm text-gray-400 hover:text-white transition-colors">
+              Sign In
             </Link>
-            <a href="#" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
-              Termos
+            <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+              Terms
             </a>
-            <a href="#" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
-              Privacidade
+            <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+              Privacy
             </a>
           </div>
         </div>
