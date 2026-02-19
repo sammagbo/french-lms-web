@@ -1,13 +1,16 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { toast } from 'sonner';
 
+// ─── Axios Instance ───
 const api = axios.create({
       baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1',
       headers: {
             'Content-Type': 'application/json',
       },
+      timeout: 15000,
 });
 
-// Request Interceptor: Add Token
+// ─── Request Interceptor: Attach JWT Token ───
 api.interceptors.request.use(
       (config) => {
             if (typeof window !== 'undefined') {
@@ -18,23 +21,67 @@ api.interceptors.request.use(
             }
             return config;
       },
-      (error) => {
-            return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
 );
 
-// Response Interceptor: Handle 401
+// ─── Response Interceptor: 401 Logout + 500 Toast ───
+let isRedirecting = false;
+
 api.interceptors.response.use(
       (response) => response,
-      (error) => {
-            if (error.response && error.response.status === 401) {
-                  if (typeof window !== 'undefined') {
-                        localStorage.removeItem('token');
-                        if (!window.location.pathname.includes('/login')) {
-                              window.location.href = '/login';
-                        }
+      (error: AxiosError) => {
+            if (typeof window === 'undefined') {
+                  return Promise.reject(error);
+            }
+
+            const status = error.response?.status;
+            const isLoginRoute = window.location.pathname.includes('/login');
+
+            // ── 401 Unauthorized: Token expirado ou inválido ──
+            if (status === 401 && !isLoginRoute && !isRedirecting) {
+                  isRedirecting = true;
+
+                  // Limpar dados de autenticação
+                  localStorage.removeItem('token');
+                  localStorage.removeItem('user');
+
+                  toast.warning('Sessão expirada', {
+                        description: 'Sua sessão expirou. Faça login novamente para continuar.',
+                        duration: 4000,
+                  });
+
+                  // Redirecionar para login com flag de sessão expirada
+                  setTimeout(() => {
+                        window.location.href = '/login?expired=true';
+                        // Reset flag após o redirect completo
+                        setTimeout(() => { isRedirecting = false; }, 3000);
+                  }, 500);
+            }
+
+            // ── 403 Forbidden: Sem permissão ──
+            if (status === 403) {
+                  toast.error('Acesso negado', {
+                        description: 'Você não tem permissão para realizar esta ação.',
+                  });
+            }
+
+            // ── 500+ Server Error: Backend caiu ──
+            if (status && status >= 500) {
+                  toast.error('Erro no servidor', {
+                        description: 'Erro de conexão com o servidor. Tente novamente mais tarde.',
+                  });
+            }
+
+            // ── Network Error: Sem internet / backend offline ──
+            if (error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+                  // Não dispara toast se estiver em Demo Mode (tratado abaixo)
+                  if (process.env.NEXT_PUBLIC_DEMO_MODE !== 'true') {
+                        toast.error('Sem conexão', {
+                              description: 'Não foi possível conectar ao servidor. Verifique sua internet.',
+                        });
                   }
             }
+
             return Promise.reject(error);
       }
 );
@@ -99,4 +146,3 @@ if (DEMO_MODE) {
 }
 
 export default api;
-
