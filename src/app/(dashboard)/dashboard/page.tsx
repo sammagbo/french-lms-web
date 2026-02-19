@@ -3,7 +3,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { academyService } from '@/services/academy.service';
 import { CourseCard } from '@/features/academy/components/course-card';
-import { Loader2 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/empty-state';
+import { DashboardSkeleton } from '@/components/ui/skeleton';
+import { BookOpen, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
       const { data: courses, isLoading, isError } = useQuery({
@@ -12,17 +15,25 @@ export default function DashboardPage() {
       });
 
       if (isLoading) {
-            return (
-                  <div className="flex h-[50vh] w-full items-center justify-center">
-                        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-                  </div>
-            );
+            return <DashboardSkeleton />;
       }
 
       if (isError) {
             return (
-                  <div className="flex h-[50vh] w-full items-center justify-center text-red-500">
-                        Erro ao carregar cursos. Tente novamente mais tarde.
+                  <div className="max-w-7xl mx-auto">
+                        <EmptyState
+                              icon={<AlertTriangle className="h-8 w-8" />}
+                              title="Erro ao carregar cursos"
+                              description="Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente."
+                              action={
+                                    <button
+                                          onClick={() => window.location.reload()}
+                                          className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors"
+                                    >
+                                          Tentar Novamente
+                                    </button>
+                              }
+                        />
                   </div>
             );
       }
@@ -45,9 +56,19 @@ export default function DashboardPage() {
                         </div>
 
                         {courses?.length === 0 ? (
-                              <div className="rounded-3xl border border-dashed border-gray-300 p-12 text-center bg-gray-50/50">
-                                    <p className="text-gray-500">Nenhum curso encontrado no momento. Volte em breve!</p>
-                              </div>
+                              <EmptyState
+                                    icon={<BookOpen className="h-8 w-8" />}
+                                    title="Nenhum curso disponível"
+                                    description="Novos cursos estão sendo preparados pelos nossos professores. Volte em breve para conferir!"
+                                    action={
+                                          <Link
+                                                href="/"
+                                                className="px-5 py-2.5 text-sm font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors"
+                                          >
+                                                Voltar ao Início
+                                          </Link>
+                                    }
+                              />
                         ) : (
                               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                     {courses?.map((course) => (
