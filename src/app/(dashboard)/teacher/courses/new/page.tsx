@@ -61,34 +61,34 @@ function Step1CourseDetails({ onNext }: { onNext: (courseId: string) => void }) 
       };
 
       return (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-xl">
                   <div>
-                        <label className="block text-sm font-medium mb-1">Título do Curso</label>
-                        <input {...register("title")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: Francês Avançado" />
-                        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Título do Curso</label>
+                        <input {...register("title")} disabled={createCourseMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Ex: Francês Avançado" />
+                        {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
                   </div>
 
                   <div>
-                        <label className="block text-sm font-medium mb-1">Slug (URL amigável)</label>
-                        <input {...register("slug")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: frances-avancado" />
-                        {errors.slug && <p className="text-red-500 text-sm">{errors.slug.message}</p>}
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Slug (URL amigável)</label>
+                        <input {...register("slug")} disabled={createCourseMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Ex: frances-avancado" />
+                        {errors.slug && <p className="text-red-500 text-sm mt-1">{errors.slug.message}</p>}
                   </div>
 
                   <div>
-                        <label className="block text-sm font-medium mb-1">Descrição</label>
-                        <textarea {...register("description")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" rows={3} />
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Descrição</label>
+                        <textarea {...register("description")} disabled={createCourseMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm resize-none" rows={4} placeholder="O que os alunos vão aprender neste curso?" />
                   </div>
 
                   <div>
-                        <label className="block text-sm font-medium mb-1">Preço (R$)</label>
-                        <input type="number" step="0.01" {...register("price")} disabled={createCourseMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" />
-                        {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Preço (R$)</label>
+                        <input type="number" step="0.01" {...register("price")} disabled={createCourseMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="0.00" />
+                        {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>}
                   </div>
 
                   <button
                         type="submit"
                         disabled={createCourseMutation.isPending}
-                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+                        className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2 w-full justify-center sm:w-auto"
                   >
                         {createCourseMutation.isPending && <Loader2 className="animate-spin w-4 h-4" />}
                         Salvar e Continuar
@@ -113,24 +113,25 @@ function Step2Modules({ courseId, onNext }: { courseId: string, onNext: (moduleI
       });
 
       return (
-            <div className="space-y-4 max-w-xl">
-                  <h3 className="text-lg font-semibold">Adicionar Módulo</h3>
-                  <form onSubmit={handleSubmit((data) => createModuleMutation.mutate(data))} className="space-y-4 p-4 border rounded bg-gray-50">
+            <div className="space-y-6 max-w-xl">
+                  <h3 className="text-xl font-bold text-gray-800">Adicionar Módulo</h3>
+                  <form onSubmit={handleSubmit((data) => createModuleMutation.mutate(data))} className="space-y-5 p-6 border border-gray-200 rounded-2xl bg-white/50 backdrop-blur-sm shadow-sm">
                         <div>
-                              <label className="block text-sm font-medium mb-1">Título do Módulo</label>
-                              <input {...register("title")} disabled={createModuleMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: Módulo 1 - Introdução" />
+                              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Título do Módulo</label>
+                              <input {...register("title")} disabled={createModuleMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Ex: Módulo 1 - Introdução" />
                         </div>
                         <div>
-                              <label className="block text-sm font-medium mb-1">Descrição (Opcional)</label>
-                              <input {...register("description")} disabled={createModuleMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" />
+                              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Descrição (Opcional)</label>
+                              <input {...register("description")} disabled={createModuleMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Breve descrição do módulo..." />
                         </div>
-                        <button type="submit" disabled={createModuleMutation.isPending} className="bg-green-600 text-white px-3 py-1.5 rounded text-sm hover:bg-green-700 disabled:opacity-50">
+                        <button type="submit" disabled={createModuleMutation.isPending} className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-5 py-2.5 rounded-xl font-medium shadow-md hover:shadow-lg hover:from-green-700 hover:to-emerald-700 transition-all disabled:opacity-50 flex items-center justify-center w-full gap-2">
+                              {createModuleMutation.isPending && <Loader2 className="animate-spin w-4 h-4" />}
                               {createModuleMutation.isPending ? "Salvando..." : "Adicionar Módulo"}
                         </button>
                   </form>
 
-                  <div className="flex justify-end">
-                        <button onClick={() => onNext("")} className="text-blue-600 underline text-sm">Próximo Passo: Aulas &rarr;</button>
+                  <div className="flex justify-end pt-2">
+                        <button onClick={() => onNext("")} className="text-indigo-600 hover:text-indigo-800 font-medium transition-colors flex items-center gap-1">Próximo Passo: Aulas &rarr;</button>
                   </div>
             </div>
       );
@@ -160,18 +161,20 @@ function Step3Lessons({ courseId }: { courseId: string }) {
       if (isLoading) return <p className="text-gray-500">Carregando módulos...</p>;
 
       return (
-            <div className="space-y-4 max-w-xl">
-                  <h3 className="text-lg font-semibold">Adicionar Aulas</h3>
+            <div className="space-y-6 max-w-xl">
+                  <h3 className="text-xl font-bold text-gray-800">Adicionar Aulas</h3>
 
                   {course?.modules.length === 0 ? (
-                        <div className="p-4 bg-yellow-50 text-yellow-800 rounded">
-                              Nenhum módulo encontrado. Volte ao passo anterior para criar módulos.
+                        <div className="p-4 bg-yellow-50 text-yellow-800 rounded-xl border border-yellow-200 flex flex-col items-center justify-center text-center">
+                              <span className="text-4xl mb-2">🚧</span>
+                              <p className="font-medium">Nenhum módulo encontrado.</p>
+                              <p className="text-sm mt-1 opacity-80">Volte ao passo anterior para criar pelo menos um módulo antes de adicionar aulas.</p>
                         </div>
                   ) : (
-                        <form onSubmit={handleSubmit((data) => createLessonMutation.mutate(data))} className="space-y-4 p-4 border rounded bg-gray-50">
+                        <form onSubmit={handleSubmit((data) => createLessonMutation.mutate(data))} className="space-y-5 p-6 border border-gray-200 rounded-2xl bg-white/50 backdrop-blur-sm shadow-sm">
                               <div>
-                                    <label className="block text-sm font-medium mb-1">Selecione o Módulo</label>
-                                    <select {...register("moduleId")} className="w-full p-2 border rounded">
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Selecione o Módulo</label>
+                                    <select {...register("moduleId")} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all text-gray-900 shadow-sm outline-none">
                                           <option value="">Selecione...</option>
                                           {course?.modules.map(module => (
                                                 <option key={module.id} value={module.id}>{module.title}</option>
@@ -179,28 +182,29 @@ function Step3Lessons({ courseId }: { courseId: string }) {
                                     </select>
                               </div>
                               <div>
-                                    <label className="block text-sm font-medium mb-1">Título da Aula</label>
-                                    <input {...register("title")} disabled={createLessonMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="Ex: Aula 1 - Olá Mundo" />
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Título da Aula</label>
+                                    <input {...register("title")} disabled={createLessonMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Ex: Aula 1 - Olá Mundo" />
                               </div>
                               <div>
-                                    <label className="block text-sm font-medium mb-1">URL do Vídeo (YouTube)</label>
-                                    <input {...register("videoUrl")} disabled={createLessonMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" placeholder="https://..." />
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">URL do Vídeo (YouTube)</label>
+                                    <input {...register("videoUrl")} disabled={createLessonMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="https://..." />
                               </div>
                               <div>
-                                    <label className="block text-sm font-medium mb-1">Conteúdo (Texto)</label>
-                                    <textarea {...register("content")} disabled={createLessonMutation.isPending} className="w-full p-2 border rounded disabled:opacity-50" rows={3} />
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Conteúdo (Texto)</label>
+                                    <textarea {...register("content")} disabled={createLessonMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm resize-none" rows={4} placeholder="Material complementar da aula..." />
                               </div>
-                              <button type="submit" disabled={createLessonMutation.isPending} className="bg-purple-600 text-white px-3 py-1.5 rounded text-sm hover:bg-purple-700 disabled:opacity-50 flex items-center gap-2 justify-center w-full">
+                              <button type="submit" disabled={createLessonMutation.isPending} className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-5 py-3 rounded-xl font-medium shadow-md hover:shadow-lg hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 flex items-center justify-center w-full gap-2 mt-2">
                                     {createLessonMutation.isPending && <Loader2 className="animate-spin w-4 h-4" />}
                                     {createLessonMutation.isPending ? "Salvando..." : "Criar Aula"}
                               </button>
                         </form>
                   )}
 
-                  <div className="mt-8 p-4 bg-green-50 border border-green-200 rounded">
-                        <h4 className="font-semibold text-green-800 flex items-center gap-2"><CheckCircle className="w-5 h-5" /> Curso Criado!</h4>
-                        <p className="text-green-700 text-sm mt-1">Você pode gerenciar este curso no painel principal ou adicionar mais aulas aqui.</p>
-                        <button onClick={() => window.location.href = '/teacher/courses'} className="mt-2 text-sm text-green-800 underline">Ir para Meus Cursos</button>
+                  <div className="mt-8 p-6 bg-emerald-50 border border-emerald-200 rounded-2xl shadow-sm text-center">
+                        <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
+                        <h4 className="font-bold text-xl text-emerald-800 mb-1">Curso Criado!</h4>
+                        <p className="text-emerald-700 text-sm mb-4">Você pode adicionar mais aulas agora ou ir para o gestor oficial do curso.</p>
+                        <button onClick={() => window.location.href = '/teacher/courses'} className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl font-medium transition-colors shadow-sm">Gestor de Cursos</button>
                   </div>
             </div>
       );
@@ -221,21 +225,30 @@ export default function CourseBuilderPage() {
 
       return (
             <div className="p-8 max-w-4xl mx-auto">
-                  <h1 className="text-2xl font-bold mb-6">Criar Novo Curso</h1>
-
-                  {/* Steps Indicator */}
-                  <div className="flex items-center gap-4 mb-8 text-sm">
-                        <div className={cn("px-3 py-1 rounded-full", step >= 1 ? "bg-blue-100 text-blue-700 font-medium" : "text-gray-400")}>1. Detalhes</div>
-                        <div className="h-px bg-gray-300 w-8"></div>
-                        <div className={cn("px-3 py-1 rounded-full", step >= 2 ? "bg-blue-100 text-blue-700 font-medium" : "text-gray-400")}>2. Módulos</div>
-                        <div className="h-px bg-gray-300 w-8"></div>
-                        <div className={cn("px-3 py-1 rounded-full", step >= 3 ? "bg-blue-100 text-blue-700 font-medium" : "text-gray-400")}>3. Aulas</div>
+                  <div className="mb-8">
+                        <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Criar Novo Curso</h1>
+                        <p className="text-gray-500 mt-2">Configure os detalhes, adicione módulos e publique suas aulas impressionantes.</p>
                   </div>
 
-                  <div className="bg-white p-6 rounded-lg shadow-sm border">
-                        {step === 1 && <Step1CourseDetails onNext={handleCourseCreated} />}
-                        {step === 2 && courseId && <Step2Modules courseId={courseId} onNext={handleModuleStep} />}
-                        {step === 3 && courseId && <Step3Lessons courseId={courseId} />}
+                  {/* Steps Indicator */}
+                  <div className="flex items-center gap-2 mb-10 w-full max-w-xl">
+                        <div className={cn("flex-1 text-center py-2.5 rounded-xl font-semibold text-sm transition-all duration-300", step >= 1 ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "bg-gray-100 text-gray-400")}>1. Detalhes</div>
+                        <div className={cn("h-1 w-6 rounded-full transition-colors duration-300", step >= 2 ? "bg-blue-600" : "bg-gray-200")}></div>
+                        <div className={cn("flex-1 text-center py-2.5 rounded-xl font-semibold text-sm transition-all duration-300", step >= 2 ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20" : "bg-gray-100 text-gray-400")}>2. Módulos</div>
+                        <div className={cn("h-1 w-6 rounded-full transition-colors duration-300", step >= 3 ? "bg-indigo-600" : "bg-gray-200")}></div>
+                        <div className={cn("flex-1 text-center py-2.5 rounded-xl font-semibold text-sm transition-all duration-300", step >= 3 ? "bg-purple-600 text-white shadow-md shadow-purple-500/20" : "bg-gray-100 text-gray-400")}>3. Aulas</div>
+                  </div>
+
+                  <div className="glass p-8 md:p-10 rounded-3xl relative overflow-hidden">
+                        {/* Decorative background blur inside the glass container */}
+                        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                        <div className="relative z-10 w-full">
+                              {step === 1 && <Step1CourseDetails onNext={handleCourseCreated} />}
+                              {step === 2 && courseId && <Step2Modules courseId={courseId} onNext={handleModuleStep} />}
+                              {step === 3 && courseId && <Step3Lessons courseId={courseId} />}
+                        </div>
                   </div>
             </div>
       );
