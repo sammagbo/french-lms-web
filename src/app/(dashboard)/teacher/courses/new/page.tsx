@@ -22,7 +22,6 @@ const courseSchema = z.object({
 
 const moduleSchema = z.object({
       title: z.string().min(1, "Título do módulo é obrigatório"),
-      description: z.string().optional(),
 });
 
 const lessonSchema = z.object({
@@ -121,10 +120,7 @@ function Step2Modules({ courseId, onNext }: { courseId: string, onNext: (moduleI
                               <label className="block text-sm font-semibold text-gray-700 mb-1.5">Título do Módulo</label>
                               <input {...register("title")} disabled={createModuleMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Ex: Módulo 1 - Introdução" />
                         </div>
-                        <div>
-                              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Descrição (Opcional)</label>
-                              <input {...register("description")} disabled={createModuleMutation.isPending} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder:text-gray-400 disabled:opacity-50 disabled:bg-gray-100 shadow-sm" placeholder="Breve descrição do módulo..." />
-                        </div>
+
                         <button type="submit" disabled={createModuleMutation.isPending} className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-5 py-2.5 rounded-xl font-medium shadow-md hover:shadow-lg hover:from-green-700 hover:to-emerald-700 transition-all disabled:opacity-50 flex items-center justify-center w-full gap-2">
                               {createModuleMutation.isPending && <Loader2 className="animate-spin w-4 h-4" />}
                               {createModuleMutation.isPending ? "Salvando..." : "Adicionar Módulo"}
