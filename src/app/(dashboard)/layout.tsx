@@ -2,9 +2,10 @@
 
 import { AuthGuard } from '@/components/auth-guard';
 import { Sidebar } from '@/components/sidebar';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { authService } from '@/services/auth.service';
+import { useRouter } from 'next/navigation';
 
 const roleLabels: Record<string, string> = {
       STUDENT: 'Aluno',
@@ -17,6 +18,8 @@ export default function DashboardLayout({
 }: {
       children: React.ReactNode;
 }) {
+      const router = useRouter();
+
       const { data: user } = useQuery({
             queryKey: ['me'],
             queryFn: authService.getProfile,
@@ -39,14 +42,27 @@ export default function DashboardLayout({
                                     <button className="text-gray-500 hover:text-gray-700 md:hidden transition-colors">
                                           <Menu className="h-6 w-6" />
                                     </button>
-                                    <div className="flex items-center space-x-4">
+                                    <div className="flex items-center space-x-6">
                                           {/* User Profile */}
-                                          <div className="flex items-center gap-2 group cursor-pointer">
-                                                <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold transition-transform group-hover:scale-110 shadow-md">
+                                          <div className="flex items-center gap-2 group">
+                                                <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-md">
                                                       {initials}
                                                 </div>
-                                                <span className="text-sm font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">{roleLabel}</span>
+                                                <span className="text-sm font-semibold text-gray-700 hidden sm:block">{roleLabel}</span>
                                           </div>
+
+                                          {/* Logout Button */}
+                                          <button
+                                                onClick={() => {
+                                                      localStorage.removeItem('token');
+                                                      localStorage.removeItem('user');
+                                                      window.location.href = '/login';
+                                                }}
+                                                className="flex items-center gap-2 text-gray-500 hover:text-red-600 transition-colors bg-gray-50 hover:bg-red-50 px-3 py-1.5 rounded-lg border border-gray-100 font-medium text-sm"
+                                          >
+                                                <LogOut className="h-4 w-4" />
+                                                <span className="hidden sm:inline">Sair</span>
+                                          </button>
                                     </div>
                               </header>
 
