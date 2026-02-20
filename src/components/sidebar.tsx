@@ -13,6 +13,7 @@ import {
       Settings,
       LogOut,
       ClipboardList,
+      BarChart3,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -23,6 +24,7 @@ const commonItems = [
 
 // Links APENAS para TEACHER e ADMIN
 const teacherItems = [
+      { label: 'Dashboard', href: '/teacher', icon: BarChart3 },
       { label: 'Cursos', href: '/teacher/courses', icon: BookOpen },
       { label: '+ Novo Curso', href: '/teacher/courses/new', icon: PlusCircle, highlight: true },
       { label: 'Correções', href: '/teacher/inbox', icon: Inbox },
