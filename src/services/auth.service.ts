@@ -21,7 +21,6 @@ export const authService = {
       register: async (data: RegisterSchema): Promise<void> => {
             await api.post('/users', {
                   ...data,
-                  role: 'STUDENT', // Default role
             });
       },
       getProfile: async (): Promise<UserProfile> => {
