@@ -19,6 +19,10 @@ import {
       Quote,
 } from "lucide-react";
 
+import { PlacementTest } from "@/components/marketing/placement-test";
+import { FreeLesson } from "@/components/marketing/free-lesson";
+import { FreeExercise } from "@/components/marketing/free-exercise";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingContent() {
@@ -448,6 +452,69 @@ export default function LandingContent() {
                                                       </div>
                                                 </div>
                                           ))}
+                                    </div>
+                              </div>
+                        </section>
+
+                        {/* ─── HUB DE APRENDIZADO GRATUITO (LEAD MAGNETS) ─── */}
+                        <section className="py-24 px-6 bg-slate-900 border-t border-slate-800 relative overflow-hidden">
+                              {/* Background elements */}
+                              <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+                              <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                              <div className="max-w-6xl mx-auto relative z-10 space-y-32">
+                                    {/* SEÇÃO 1: AULA GRATUITA */}
+                                    <div>
+                                          <div className="text-center mb-12 space-y-3">
+                                                <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">
+                                                      Degustação
+                                                </p>
+                                                <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                                                      Assista a uma aula completa
+                                                </h2>
+                                                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                                                      Veja como é a nossa metodologia com esta aula essencial sobre cumprimentos em francês.
+                                                </p>
+                                          </div>
+                                          <div className="max-w-5xl mx-auto">
+                                                <FreeLesson />
+                                          </div>
+                                    </div>
+
+                                    {/* SEÇÃO 2: EXERCÍCIO PRÁTICO */}
+                                    <div>
+                                          <div className="text-center mb-12 space-y-3">
+                                                <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">
+                                                      Prática
+                                                </p>
+                                                <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                                                      Teste o que você aprendeu
+                                                </h2>
+                                                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                                                      Aplique o vocabulário da aula em situações reais e veja o feedback imediato.
+                                                </p>
+                                          </div>
+                                          <div className="max-w-4xl mx-auto">
+                                                <FreeExercise />
+                                          </div>
+                                    </div>
+
+                                    {/* SEÇÃO 3: TESTE DE NÍVEL */}
+                                    <div>
+                                          <div className="text-center mb-12 space-y-3">
+                                                <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">
+                                                      Nivelamento
+                                                </p>
+                                                <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                                                      Já tem conhecimento prévio?
+                                                </h2>
+                                                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                                                      Faça nosso teste rápido. Ao final, você pode criar sua conta gratuita para acessar o material ideal.
+                                                </p>
+                                          </div>
+                                          <div className="max-w-3xl mx-auto">
+                                                <PlacementTest />
+                                          </div>
                                     </div>
                               </div>
                         </section>
