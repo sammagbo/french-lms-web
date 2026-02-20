@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { analyticsService } from "@/services/analytics.service";
-import { Loader2, BarChart3 } from "lucide-react";
+import { Loader2, BarChart3, Calendar } from "lucide-react";
 import {
       BarChart,
       Bar,
@@ -69,13 +70,16 @@ function ChartSkeleton() {
 
 // ─── Gráfico de Submissões (Barras) ───
 export function SubmissionsChart() {
-      const { data, isLoading, isError } = useQuery({
-            queryKey: ["analytics-submissions-by-day"],
-            queryFn: analyticsService.getSubmissionsByDay,
+      const [days, setDays] = useState<number>(7);
+
+      const { data, isLoading, isError, isFetching } = useQuery({
+            queryKey: ["analytics-submissions-by-day", days],
+            queryFn: () => analyticsService.getSubmissionsByDay(days),
             refetchInterval: 60_000,
       });
 
-      if (isLoading) return <ChartSkeleton />;
+      // Show skeleton only on first load, not on background refetches
+      if (isLoading && !data) return <ChartSkeleton />;
 
       if (isError || !data) {
             return (
@@ -91,14 +95,28 @@ export function SubmissionsChart() {
       }));
 
       return (
-            <div className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className={`rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300 relative ${isFetching ? 'opacity-80' : ''} transition-opacity`}>
                   {/* Header */}
                   <div className="flex items-center justify-between mb-6">
                         <div>
-                              <h3 className="text-lg font-bold text-gray-900">
-                                    Submissões — Últimos 7 Dias
-                              </h3>
-                              <p className="text-sm text-gray-400 mt-0.5">
+                              <div className="flex items-center gap-2">
+                                    <h3 className="text-lg font-bold text-gray-900">
+                                          Submissões
+                                    </h3>
+                                    <div className="flex items-center bg-gray-50 border border-gray-200 rounded-lg px-2 py-1">
+                                          <Calendar className="w-3 h-3 text-gray-400 mr-1.5" />
+                                          <select
+                                                value={days}
+                                                onChange={(e) => setDays(Number(e.target.value))}
+                                                className="text-xs font-medium text-gray-600 bg-transparent border-none outline-none cursor-pointer pr-1"
+                                          >
+                                                <option value={7}>Últimos 7 dias</option>
+                                                <option value={15}>Últimos 15 dias</option>
+                                                <option value={30}>Últimos 30 dias</option>
+                                          </select>
+                                    </div>
+                              </div>
+                              <p className="text-sm text-gray-400 mt-1">
                                     Tarefas entregues pelos alunos
                               </p>
                         </div>
@@ -150,13 +168,15 @@ export function SubmissionsChart() {
 
 // ─── Gráfico de Novos Alunos (Área) ───
 export function NewStudentsChart() {
-      const { data, isLoading, isError } = useQuery({
-            queryKey: ["analytics-new-students-by-day"],
-            queryFn: analyticsService.getNewStudentsByDay,
+      const [days, setDays] = useState<number>(7);
+
+      const { data, isLoading, isError, isFetching } = useQuery({
+            queryKey: ["analytics-new-students-by-day", days],
+            queryFn: () => analyticsService.getNewStudentsByDay(days),
             refetchInterval: 60_000,
       });
 
-      if (isLoading) return <ChartSkeleton />;
+      if (isLoading && !data) return <ChartSkeleton />;
 
       if (isError || !data) {
             return (
@@ -172,14 +192,28 @@ export function NewStudentsChart() {
       }));
 
       return (
-            <div className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className={`rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300 relative ${isFetching ? 'opacity-80' : ''} transition-opacity`}>
                   {/* Header */}
                   <div className="flex items-center justify-between mb-6">
                         <div>
-                              <h3 className="text-lg font-bold text-gray-900">
-                                    Novos Alunos — Últimos 7 Dias
-                              </h3>
-                              <p className="text-sm text-gray-400 mt-0.5">
+                              <div className="flex items-center gap-2">
+                                    <h3 className="text-lg font-bold text-gray-900">
+                                          Novos Alunos
+                                    </h3>
+                                    <div className="flex items-center bg-gray-50 border border-gray-200 rounded-lg px-2 py-1">
+                                          <Calendar className="w-3 h-3 text-gray-400 mr-1.5" />
+                                          <select
+                                                value={days}
+                                                onChange={(e) => setDays(Number(e.target.value))}
+                                                className="text-xs font-medium text-gray-600 bg-transparent border-none outline-none cursor-pointer pr-1"
+                                          >
+                                                <option value={7}>Últimos 7 dias</option>
+                                                <option value={15}>Últimos 15 dias</option>
+                                                <option value={30}>Últimos 30 dias</option>
+                                          </select>
+                                    </div>
+                              </div>
+                              <p className="text-sm text-gray-400 mt-1">
                                     Registos diários na plataforma
                               </p>
                         </div>

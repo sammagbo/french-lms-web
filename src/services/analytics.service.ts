@@ -20,13 +20,13 @@ export const analyticsService = {
             return response.data;
       },
 
-      getSubmissionsByDay: async (): Promise<DayCount[]> => {
-            const response = await api.get<DayCount[]>('/analytics/submissions-by-day');
+      getSubmissionsByDay: async (days: number = 7): Promise<DayCount[]> => {
+            const response = await api.get<DayCount[]>(`/analytics/submissions-by-day?days=${days}`);
             return response.data;
       },
 
-      getNewStudentsByDay: async (): Promise<DayCount[]> => {
-            const response = await api.get<DayCount[]>('/analytics/new-students-by-day');
+      getNewStudentsByDay: async (days: number = 7): Promise<DayCount[]> => {
+            const response = await api.get<DayCount[]>(`/analytics/new-students-by-day?days=${days}`);
             return response.data;
       },
 };

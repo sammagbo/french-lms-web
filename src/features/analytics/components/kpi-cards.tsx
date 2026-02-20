@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useQuery } from "@tanstack/react-query";
 import { analyticsService, KPIData } from "@/services/analytics.service";
 import {
@@ -19,15 +21,19 @@ interface KPICardProps {
       icon: React.ReactNode;
       gradient: string;
       iconBg: string;
+      href?: string;
+      isFetching?: boolean;
 }
 
-function KPICard({ title, value, subtitle, icon, gradient, iconBg }: KPICardProps) {
-      return (
+function KPICard({ title, value, subtitle, icon, gradient, iconBg, href, isFetching }: KPICardProps) {
+      const content = (
             <div
                   className={`
                         relative overflow-hidden rounded-2xl border border-white/20 bg-white p-6
                         shadow-sm hover:shadow-lg hover:-translate-y-0.5
-                        transition-all duration-300 ease-out group cursor-default
+                        transition-all duration-300 ease-out group ${href ? "cursor-pointer" : "cursor-default"}
+                        block w-full text-left
+                        ${isFetching ? 'opacity-80' : ''}
                   `}
             >
                   {/* Gradient accent bar */}
@@ -56,6 +62,12 @@ function KPICard({ title, value, subtitle, icon, gradient, iconBg }: KPICardProp
                   </div>
             </div>
       );
+
+      if (href) {
+            return <Link href={href}>{content}</Link>;
+      }
+
+      return content;
 }
 
 function KPICardSkeleton() {
@@ -74,13 +86,14 @@ function KPICardSkeleton() {
 }
 
 export function KPICards() {
-      const { data: kpis, isLoading, isError } = useQuery({
+      const { data: kpis, isLoading, isError, isFetching } = useQuery({
             queryKey: ["analytics-kpis"],
             queryFn: analyticsService.getKPIs,
             refetchInterval: 60_000, // Auto-refresh a cada 60s
       });
 
-      if (isLoading) {
+      // Show skeleton ONLY on the very first load
+      if (isLoading && !kpis) {
             return (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {[...Array(6)].map((_, i) => (
@@ -107,6 +120,7 @@ export function KPICards() {
                   icon: <Users className="h-6 w-6 text-blue-600" />,
                   gradient: "bg-gradient-to-r from-blue-500 to-blue-600",
                   iconBg: "bg-blue-50",
+                  href: "/teacher/students",
             },
             {
                   title: "Pendentes de Correção",
@@ -115,6 +129,7 @@ export function KPICards() {
                   icon: <Clock className="h-6 w-6 text-amber-600" />,
                   gradient: "bg-gradient-to-r from-amber-400 to-amber-500",
                   iconBg: "bg-amber-50",
+                  href: "/teacher/inbox",
             },
             {
                   title: "Total de Cursos",
@@ -123,6 +138,7 @@ export function KPICards() {
                   icon: <BookOpen className="h-6 w-6 text-indigo-600" />,
                   gradient: "bg-gradient-to-r from-indigo-500 to-indigo-600",
                   iconBg: "bg-indigo-50",
+                  href: "/teacher/courses",
             },
             {
                   title: "Total de Atividades",
@@ -153,7 +169,7 @@ export function KPICards() {
       return (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {cards.map((card) => (
-                        <KPICard key={card.title} {...card} />
+                        <KPICard key={card.title} {...card} isFetching={isFetching} />
                   ))}
             </div>
       );
