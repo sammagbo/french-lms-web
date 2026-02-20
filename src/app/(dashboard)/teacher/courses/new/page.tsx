@@ -57,7 +57,8 @@ function Step1CourseDetails({ onNext }: { onNext: (courseId: string) => void }) 
       });
 
       const onSubmit = (data: CourseForm) => {
-            createCourseMutation.mutate(data);
+            const { isPublished, ...payload } = data;
+            createCourseMutation.mutate(payload);
       };
 
       return (
