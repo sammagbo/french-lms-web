@@ -1,12 +1,32 @@
+"use client";
+
 import { AuthGuard } from '@/components/auth-guard';
 import { Sidebar } from '@/components/sidebar';
 import { Menu } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { authService } from '@/services/auth.service';
+
+const roleLabels: Record<string, string> = {
+      STUDENT: 'Aluno',
+      TEACHER: 'Professor',
+      ADMIN: 'Administrador',
+};
 
 export default function DashboardLayout({
       children,
 }: {
       children: React.ReactNode;
 }) {
+      const { data: user } = useQuery({
+            queryKey: ['me'],
+            queryFn: authService.getProfile,
+            retry: false,
+            staleTime: 5 * 60 * 1000,
+      });
+
+      const initials = user?.email?.substring(0, 2).toUpperCase() || '??';
+      const roleLabel = user?.role ? roleLabels[user.role] || user.role : '...';
+
       return (
             <AuthGuard>
                   <div className="flex h-screen overflow-hidden bg-gray-100">
@@ -20,12 +40,12 @@ export default function DashboardLayout({
                                           <Menu className="h-6 w-6" />
                                     </button>
                                     <div className="flex items-center space-x-4">
-                                          {/* User Profile / Notifications */}
+                                          {/* User Profile */}
                                           <div className="flex items-center gap-2 group cursor-pointer">
                                                 <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold transition-transform group-hover:scale-110 shadow-md">
-                                                      PS
+                                                      {initials}
                                                 </div>
-                                                <span className="text-sm font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">Professor</span>
+                                                <span className="text-sm font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">{roleLabel}</span>
                                           </div>
                                     </div>
                               </header>
@@ -39,3 +59,4 @@ export default function DashboardLayout({
             </AuthGuard>
       );
 }
+

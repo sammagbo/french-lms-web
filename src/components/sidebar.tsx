@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { authService } from '@/services/auth.service';
 import {
       Home,
       BookOpen,
@@ -9,21 +11,53 @@ import {
       Inbox,
       Users,
       Settings,
-      LogOut
+      LogOut,
+      ClipboardList,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const navItems = [
+// Links visíveis para TODOS os usuários autenticados
+const commonItems = [
       { label: 'Início', href: '/dashboard', icon: Home },
+];
+
+// Links APENAS para TEACHER e ADMIN
+const teacherItems = [
       { label: 'Cursos', href: '/teacher/courses', icon: BookOpen },
       { label: '+ Novo Curso', href: '/teacher/courses/new', icon: PlusCircle, highlight: true },
-      { label: 'Mensagens', href: '/teacher/inbox', icon: Inbox },
+      { label: 'Correções', href: '/teacher/inbox', icon: Inbox },
+];
+
+// Links APENAS para STUDENT
+const studentItems = [
+      { label: 'Meus Cursos', href: '/dashboard', icon: BookOpen },
+      { label: 'Tarefas', href: '/dashboard/assignments', icon: ClipboardList },
+];
+
+// Links visíveis para TODOS no final
+const bottomItems = [
       { label: 'Comunidade', href: '/dashboard/community', icon: Users },
       { label: 'Configurações', href: '/dashboard/settings', icon: Settings },
 ];
 
 export function Sidebar() {
       const pathname = usePathname();
+
+      const { data: user } = useQuery({
+            queryKey: ['me'],
+            queryFn: authService.getProfile,
+            retry: false,
+            staleTime: 5 * 60 * 1000, // Cache por 5 min
+      });
+
+      const isTeacher = user?.role === 'TEACHER' || user?.role === 'ADMIN';
+
+      // Monta o menu baseado no role
+      const navItems = [
+            ...commonItems,
+            ...(isTeacher ? teacherItems : studentItems),
+            ...bottomItems,
+      ];
 
       return (
             <aside className="hidden w-64 flex-col border-r bg-white/80 backdrop-blur-md md:flex h-full transition-all duration-300">
@@ -47,7 +81,7 @@ export function Sidebar() {
                                                 isActive
                                                       ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
                                                       : "text-gray-600 hover:bg-gray-50 hover:text-blue-600",
-                                                item.highlight && !isActive && "text-blue-600 bg-blue-50 font-semibold"
+                                                (item as any).highlight && !isActive && "text-blue-600 bg-blue-50 font-semibold"
                                           )}
                                     >
                                           <Icon className={cn(
@@ -64,6 +98,7 @@ export function Sidebar() {
                         <button
                               onClick={() => {
                                     localStorage.removeItem('token');
+                                    localStorage.removeItem('user');
                                     window.location.href = '/login';
                               }}
                               className="flex w-full items-center gap-3 px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all duration-200 group"
@@ -75,3 +110,4 @@ export function Sidebar() {
             </aside>
       );
 }
+
