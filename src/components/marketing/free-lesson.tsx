@@ -5,9 +5,9 @@ import Link from "next/link";
 
 export function FreeLesson() {
       return (
-            <div className="w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
+            <div className="w-full bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/20 flex flex-col md:flex-row">
                   {/* Video Side */}
-                  <div className="md:w-1/2 relative bg-slate-900 group">
+                  <div className="md:w-1/2 relative bg-slate-900/50 group">
                         <div className="aspect-video w-full h-full min-h-[300px] relative overflow-hidden">
                               <iframe
                                     className="absolute inset-0 w-full h-full object-cover"
@@ -22,40 +22,40 @@ export function FreeLesson() {
                   {/* Content Side */}
                   <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
                         <div className="flex items-center gap-2 mb-4">
-                              <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                                     Aula Demonstrativa
                               </span>
-                              <span className="flex items-center gap-1 text-sm text-gray-500 font-medium">
+                              <span className="flex items-center gap-1 text-sm text-slate-400 font-medium">
                                     <Clock className="w-4 h-4" /> 5 min
                               </span>
                         </div>
 
-                        <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                        <h3 className="text-3xl font-bold text-white mb-3">
                               Cumprimentos Essenciais
                         </h3>
 
-                        <p className="text-gray-600 mb-6 leading-relaxed">
+                        <p className="text-slate-300 mb-6 leading-relaxed">
                               Dê o primeiro passo no aprendizado do francês! Nesta aula curta, você vai aprender a diferença entre "Bonjour" e "Bonsoir", quando usá-los, e como soar como um nativo nas suas primeiras interações.
                         </p>
 
                         <div className="space-y-3 mb-8">
                               <div className="flex items-start gap-3">
-                                    <div className="mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                                          <Presentation className="w-3.5 h-3.5 text-green-600" />
+                                    <div className="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0 border border-emerald-500/30">
+                                          <Presentation className="w-3.5 h-3.5 text-emerald-400" />
                                     </div>
-                                    <p className="text-sm text-gray-700">Explicação clara da teoria básica do idioma.</p>
+                                    <p className="text-sm text-slate-300">Explicação clara da teoria básica do idioma.</p>
                               </div>
                               <div className="flex items-start gap-3">
-                                    <div className="mt-1 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
-                                          <PlayCircle className="w-3.5 h-3.5 text-blue-600" />
+                                    <div className="mt-1 w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30">
+                                          <PlayCircle className="w-3.5 h-3.5 text-indigo-400" />
                                     </div>
-                                    <p className="text-sm text-gray-700">Pronúncia nativa para você repetir junto.</p>
+                                    <p className="text-sm text-slate-300">Pronúncia nativa para você repetir junto.</p>
                               </div>
                         </div>
 
                         <Link
                               href="/register"
-                              className="inline-flex items-center justify-center gap-2 w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-blue-600/20 hover:-translate-y-0.5"
+                              className="inline-flex items-center justify-center gap-2 w-full text-center bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:-translate-y-0.5"
                         >
                               <BookOpen className="w-5 h-5" />
                               Criar Conta para Ver Mais Aulas

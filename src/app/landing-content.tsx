@@ -457,10 +457,13 @@ export default function LandingContent() {
                         </section>
 
                         {/* ─── HUB DE APRENDIZADO GRATUITO (LEAD MAGNETS) ─── */}
-                        <section className="py-24 px-6 bg-slate-900 border-t border-slate-800 relative overflow-hidden">
-                              {/* Background elements */}
-                              <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-                              <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+                        <section className="py-24 px-6 border-t border-slate-800 relative overflow-hidden">
+                              {/* FUNDO GLASSMORPHISM */}
+                              <div className="absolute inset-0 z-0 bg-slate-950 overflow-hidden pointer-events-none">
+                                    <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-indigo-600/30 blur-[120px] rounded-full"></div>
+                                    <div className="absolute top-[20%] -right-[10%] w-[40%] h-[60%] bg-emerald-600/20 blur-[120px] rounded-full"></div>
+                                    <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[50%] bg-purple-600/20 blur-[120px] rounded-full"></div>
+                              </div>
 
                               <div className="max-w-6xl mx-auto relative z-10 space-y-32">
                                     {/* SEÇÃO 1: AULA GRATUITA */}

@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { RegisterForm } from "@/features/auth/components/register-form";
-import { CheckCircle2, ChevronRight, Trophy, AlertCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import { registerSchema, RegisterSchema } from "@/features/auth/auth.schema";
+import { authService } from "@/services/auth.service";
 
 type Question = {
       id: number;
@@ -24,144 +28,189 @@ const QUIZ_QUESTIONS: Question[] = [
       },
       {
             id: 2,
-            text: "Qual destas frases significa 'Eu sou brasileiro(a)'?",
+            text: "Complete a frase: Je ___ brésilien(ne).",
             options: [
-                  { label: "J'ai brésilien", isCorrect: false },
-                  { label: "Je parle brésilien", isCorrect: false },
-                  { label: "Je m'appelle brésilien", isCorrect: false },
-                  { label: "Je suis brésilien(ne)", isCorrect: true },
+                  { label: "est", isCorrect: false },
+                  { label: "avoir", isCorrect: false },
+                  { label: "suis", isCorrect: true },
+                  { label: "aller", isCorrect: false },
             ],
       },
       {
             id: 3,
-            text: "Complete a frase: 'Je ___ parler français.' (Eu quero falar francês)",
+            text: "Qual verbo significa 'Falar'?",
             options: [
-                  { label: "peux (posso)", isCorrect: false },
-                  { label: "dois (devo)", isCorrect: false },
-                  { label: "veux (quero)", isCorrect: true },
-                  { label: "sais (sei)", isCorrect: false },
+                  { label: "Parler", isCorrect: true },
+                  { label: "Manger", isCorrect: false },
+                  { label: "Écouter", isCorrect: false },
+                  { label: "Regarder", isCorrect: false },
             ],
       },
 ];
 
 export function PlacementTest() {
-      const [currentStep, setCurrentStep] = useState(0);
+      const [step, setStep] = useState(0);
       const [score, setScore] = useState(0);
-      const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-      const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
+      const [isSuccess, setIsSuccess] = useState(false);
+      const router = useRouter();
 
-      const isQuizFinished = currentStep >= QUIZ_QUESTIONS.length;
+      const {
+            register,
+            handleSubmit,
+            formState: { errors },
+      } = useForm<RegisterSchema>({
+            resolver: zodResolver(registerSchema),
+      });
 
-      const handleSelectAnswer = (index: number) => {
-            if (isAnswerRevealed) return;
-            setSelectedAnswer(index);
-            setIsAnswerRevealed(true);
+      const registerMutation = useMutation({
+            mutationFn: authService.register,
+            onSuccess: () => {
+                  setIsSuccess(true);
+                  setTimeout(() => {
+                        router.push('/dashboard');
+                  }, 1500);
+            },
+            onError: (error: any) => {
+                  const message = error.response?.data?.message || 'Erro ao criar conta';
+                  alert(message);
+            },
+      });
 
-            if (QUIZ_QUESTIONS[currentStep].options[index].isCorrect) {
+      const isLoading = registerMutation.isPending;
+
+      const handleAnswer = (selectedIndex: number) => {
+            const isCorrect = QUIZ_QUESTIONS[step - 1].options[selectedIndex].isCorrect;
+            if (isCorrect) {
                   setScore((prev) => prev + 1);
             }
+            setTimeout(() => {
+                  setStep((prev) => prev + 1);
+            }, 300);
       };
 
-      const handleNextStep = () => {
-            setCurrentStep((prev) => prev + 1);
-            setSelectedAnswer(null);
-            setIsAnswerRevealed(false);
+      const onSubmit = (data: RegisterSchema) => {
+            registerMutation.mutate(data);
       };
 
       return (
-            <div className="w-full max-w-3xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-                  <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-center text-white">
-                        <h3 className="text-2xl font-bold mb-2">Teste de Nivelamento Rápido</h3>
-                        <p className="text-blue-100">Descubra o seu nível e ganhe acesso imediato ao conteúdo ideal.</p>
-                  </div>
+            <div className="w-full flex justify-center perspective-1000">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-2xl shadow-2xl max-w-md w-full relative">
 
-                  <div className="p-8">
-                        {!isQuizFinished ? (
-                              // QUIZ ACTIVE STATE
-                              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    {/* Progress Bar */}
-                                    <div className="flex items-center justify-between text-sm font-medium text-gray-500 mb-2">
-                                          <span>Pergunta {currentStep + 1} de {QUIZ_QUESTIONS.length}</span>
-                                          <span>{Math.round(((currentStep) / QUIZ_QUESTIONS.length) * 100)}%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100 rounded-full h-2 mb-8 overflow-hidden">
-                                          <div
-                                                className="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-                                                style={{ width: `${((currentStep) / QUIZ_QUESTIONS.length) * 100}%` }}
-                                          />
-                                    </div>
-
-                                    <h4 className="text-xl font-bold text-gray-900 mb-6">
-                                          {QUIZ_QUESTIONS[currentStep].text}
-                                    </h4>
-
-                                    <div className="space-y-3">
-                                          {QUIZ_QUESTIONS[currentStep].options.map((option, idx) => {
-                                                const isSelected = selectedAnswer === idx;
-                                                const isCorrect = option.isCorrect;
-
-                                                let buttonStyle = "border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-700";
-
-                                                if (isAnswerRevealed) {
-                                                      if (isSelected && isCorrect) buttonStyle = "border-green-500 bg-green-50 text-green-700 font-medium";
-                                                      else if (isSelected && !isCorrect) buttonStyle = "border-red-400 bg-red-50 text-red-700";
-                                                      else if (!isSelected && isCorrect) buttonStyle = "border-green-500 bg-green-50 text-green-700 opacity-70";
-                                                      else buttonStyle = "border-gray-200 opacity-50";
-                                                }
-
-                                                return (
-                                                      <button
-                                                            key={idx}
-                                                            onClick={() => handleSelectAnswer(idx)}
-                                                            disabled={isAnswerRevealed}
-                                                            className={cn(
-                                                                  "w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex justify-between items-center",
-                                                                  buttonStyle
-                                                            )}
-                                                      >
-                                                            <span>{option.label}</span>
-                                                            {isAnswerRevealed && isCorrect && <CheckCircle2 className="w-5 h-5 text-green-600" />}
-                                                            {isAnswerRevealed && isSelected && !isCorrect && <AlertCircle className="w-5 h-5 text-red-500" />}
-                                                      </button>
-                                                );
-                                          })}
-                                    </div>
-
-                                    {isAnswerRevealed && (
-                                          <div className="pt-6 animate-in fade-in zoom-in-95 duration-300">
-                                                <button
-                                                      onClick={handleNextStep}
-                                                      className="w-full sm:w-auto ml-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors"
-                                                >
-                                                      Continuar <ChevronRight className="w-5 h-5" />
-                                                </button>
-                                          </div>
-                                    )}
+                        {step === 0 && (
+                              <div className="text-center relative z-10 animate-in fade-in duration-500">
+                                    <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-500/30">
+                                          Descubra o seu nível grátis
+                                    </span>
+                                    <h3 className="text-2xl font-bold mb-3 text-white">Teste Rápido de Francês</h3>
+                                    <p className="text-slate-300 mb-8 text-sm leading-relaxed">
+                                          Responda a {QUIZ_QUESTIONS.length} perguntas simples para avaliarmos o seu nível atual e recomendarmos o módulo ideal.
+                                    </p>
+                                    <button
+                                          onClick={() => setStep(1)}
+                                          className="w-full py-4 px-4 bg-white text-indigo-900 font-bold rounded-xl hover:bg-slate-100 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-white/10"
+                                    >
+                                          Começar o Teste
+                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                                    </button>
                               </div>
-                        ) : (
-                              // QUIZ FINISHED - LEAD MAGNET STATE
-                              <div className="animate-in fade-in zoom-in-95 duration-700 flex flex-col items-center">
-                                    <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mb-6">
-                                          <Trophy className="w-10 h-10 text-amber-500" />
-                                    </div>
+                        )}
 
-                                    <h4 className="text-3xl font-extrabold text-gray-900 mb-3 text-center">
-                                          Você acertou {score} de {QUIZ_QUESTIONS.length}!
-                                    </h4>
-
-                                    <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8 text-center max-w-xl">
-                                          <p className="text-blue-800 font-medium text-lg mb-2">
-                                                Recomendamos o curso: <strong>Francês Essencial (Nível A1)</strong>
-                                          </p>
-                                          <p className="text-blue-600/80 text-sm">
-                                                Crie sua conta agora mesmo e todo esse conteúdo estará disponível no seu painel de aulas instantaneamente. Sem cartão de crédito!
-                                          </p>
+                        {step > 0 && step <= QUIZ_QUESTIONS.length && (
+                              <div className="relative z-10 animate-in slide-in-from-right-4 duration-300">
+                                    <div className="flex justify-between items-center mb-6 text-sm text-slate-300 font-medium">
+                                          <span>Pergunta {step} de {QUIZ_QUESTIONS.length}</span>
+                                          <div className="flex gap-1.5">
+                                                {QUIZ_QUESTIONS.map((_, idx) => (
+                                                      <div key={idx} className={`h-1.5 w-6 rounded-full transition-colors duration-300 ${idx < step ? 'bg-indigo-400' : 'bg-white/10'}`} />
+                                                ))}
+                                          </div>
                                     </div>
-
-                                    {/* Injetando o Form de Registro Diretamente */}
-                                    <div className="w-full flex justify-center border-t border-gray-100 pt-8">
-                                          <RegisterForm />
+                                    <h3 className="text-xl font-bold mb-6 text-white leading-relaxed">{QUIZ_QUESTIONS[step - 1].text}</h3>
+                                    <div className="space-y-3">
+                                          {QUIZ_QUESTIONS[step - 1].options.map((option, idx) => (
+                                                <button
+                                                      key={idx}
+                                                      onClick={() => handleAnswer(idx)}
+                                                      className="w-full text-left p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/20 transition-all flex items-center justify-between group cursor-pointer"
+                                                >
+                                                      <span className="font-medium text-slate-200 group-hover:text-white">{option.label}</span>
+                                                      <svg width="18" height="18" className="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                                                </button>
+                                          ))}
                                     </div>
+                              </div>
+                        )}
+
+                        {step > QUIZ_QUESTIONS.length && !isSuccess && (
+                              <div className="text-center relative z-10 animate-in fade-in zoom-in duration-500">
+                                    <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+                                          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                                    </div>
+                                    <h3 className="text-2xl font-bold mb-2 text-white">Excelente!</h3>
+                                    <p className="text-slate-300 mb-6 text-sm">
+                                          Acertou {score} de {QUIZ_QUESTIONS.length} perguntas. O seu nível estimado é <strong className="text-white">A1 (Iniciante)</strong>.
+                                    </p>
+
+                                    <div className="bg-slate-900/50 p-5 rounded-xl border border-white/10 mb-2 text-left">
+                                          <p className="text-sm font-semibold mb-4 text-center text-slate-200">Crie a sua conta para guardar o resultado e aceder à 1ª aula!</p>
+                                          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+                                                <div>
+                                                      <input
+                                                            type="text"
+                                                            placeholder="O seu Nome Completo"
+                                                            {...register('fullName')}
+                                                            disabled={isLoading}
+                                                            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+                                                      />
+                                                      {errors.fullName && <p className="mt-1 text-xs text-red-400">{errors.fullName.message}</p>}
+                                                </div>
+                                                <div>
+                                                      <input
+                                                            type="email"
+                                                            placeholder="O seu E-mail"
+                                                            {...register('email')}
+                                                            disabled={isLoading}
+                                                            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+                                                      />
+                                                      {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
+                                                </div>
+                                                <div>
+                                                      <input
+                                                            type="password"
+                                                            placeholder="Criar Senha"
+                                                            {...register('password')}
+                                                            disabled={isLoading}
+                                                            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+                                                      />
+                                                      {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password.message}</p>}
+                                                </div>
+                                                <button
+                                                      type="submit"
+                                                      disabled={isLoading}
+                                                      className="w-full py-3.5 mt-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/25"
+                                                >
+                                                      {isLoading ? (
+                                                            <>
+                                                                  <Loader2 className="w-5 h-5 animate-spin" />
+                                                                  A criar conta...
+                                                            </>
+                                                      ) : (
+                                                            <>
+                                                                  Começar a Aprender
+                                                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                                                            </>
+                                                      )}
+                                                </button>
+                                          </form>
+                                    </div>
+                              </div>
+                        )}
+
+                        {isSuccess && (
+                              <div className="text-center relative z-10 animate-in fade-in zoom-in duration-500 py-8">
+                                    <svg width="64" height="64" className="text-emerald-400 mx-auto mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+                                    <h3 className="text-3xl font-bold mb-2 text-white">Conta Criada!</h3>
+                                    <p className="text-slate-300">A redirecionar para o seu Dashboard de aprendizagem...</p>
                               </div>
                         )}
                   </div>

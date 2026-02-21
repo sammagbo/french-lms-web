@@ -55,22 +55,22 @@ export function FreeExercise() {
       };
 
       return (
-            <div className="w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 flex flex-col lg:flex-row">
+            <div className="w-full bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/20 flex flex-col lg:flex-row">
                   {/* Info / Title Side */}
-                  <div className="lg:w-1/3 bg-gradient-to-br from-indigo-50 to-blue-50 p-8 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-gray-100">
-                        <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 text-indigo-600">
+                  <div className="lg:w-1/3 bg-slate-900/40 p-8 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-white/10">
+                        <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center shadow-sm mb-6 text-indigo-400">
                               <Edit3 className="w-6 h-6" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Exercício Rápido</h3>
-                        <p className="text-gray-600 mb-6 leading-relaxed text-sm">
+                        <h3 className="text-2xl font-bold text-white mb-3">Exercício Rápido</h3>
+                        <p className="text-slate-300 mb-6 leading-relaxed text-sm">
                               Teste na prática o que você aprenderia nas primeiras aulas de francês. Complete o cenário e veja a explicação!
                         </p>
                         <div className="space-y-4">
-                              <div className="flex items-center gap-3 text-sm text-gray-700 font-medium bg-white/60 p-3 rounded-lg">
-                                    <MessageCircle className="w-4 h-4 text-blue-500" /> Situações Reais
+                              <div className="flex items-center gap-3 text-sm text-slate-200 font-medium bg-white/5 border border-white/10 p-3 rounded-lg">
+                                    <MessageCircle className="w-4 h-4 text-indigo-400" /> Situações Reais
                               </div>
-                              <div className="flex items-center gap-3 text-sm text-gray-700 font-medium bg-white/60 p-3 rounded-lg">
-                                    <CheckCircle2 className="w-4 h-4 text-green-500" /> Feedback Automático
+                              <div className="flex items-center gap-3 text-sm text-slate-200 font-medium bg-white/5 border border-white/10 p-3 rounded-lg">
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Feedback Automático
                               </div>
                         </div>
                   </div>
@@ -78,17 +78,17 @@ export function FreeExercise() {
                   {/* Interactive Side */}
                   <div className="lg:w-2/3 p-8 lg:p-10 relative">
                         {!isExerciseFinished ? (
-                              <div className="animate-in fade-in slide-in-from-right-4 duration-500 max-w-lg mx-auto">
-                                    <div className="flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b pb-4">
+                              <div className="animate-in fade-in slide-in-from-right-4 duration-500 max-w-lg mx-auto relative z-10">
+                                    <div className="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 border-b border-white/10 pb-4">
                                           <span>Pergunta {currentStep + 1} de {EXERCISE_QUESTIONS.length}</span>
                                     </div>
 
-                                    <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                                          <p className="text-sm font-medium text-gray-500 mb-1">Cenário:</p>
-                                          <p className="text-gray-800 italic">"{EXERCISE_QUESTIONS[currentStep].context}"</p>
+                                    <div className="mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                                          <p className="text-sm font-medium text-slate-400 mb-1">Cenário:</p>
+                                          <p className="text-white italic">"{EXERCISE_QUESTIONS[currentStep].context}"</p>
                                     </div>
 
-                                    <h4 className="text-xl font-bold text-gray-900 mb-6">
+                                    <h4 className="text-xl font-bold text-white mb-6">
                                           {EXERCISE_QUESTIONS[currentStep].text}
                                     </h4>
 
@@ -97,13 +97,13 @@ export function FreeExercise() {
                                                 const isSelected = selectedAnswer === idx;
                                                 const isCorrect = option.isCorrect;
 
-                                                let buttonStyle = "border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700";
+                                                let buttonStyle = "border-white/10 hover:border-indigo-400/50 hover:bg-white/10 text-slate-200 group-hover:text-white";
 
                                                 if (isAnswerRevealed) {
-                                                      if (isSelected && isCorrect) buttonStyle = "border-green-500 bg-green-50 text-green-700 font-medium shadow-sm shadow-green-100";
-                                                      else if (isSelected && !isCorrect) buttonStyle = "border-red-400 bg-red-50 text-red-700 shadow-sm shadow-red-100";
-                                                      else if (!isSelected && isCorrect) buttonStyle = "border-green-500 bg-green-50 text-green-700 opacity-60";
-                                                      else buttonStyle = "border-gray-200 opacity-40";
+                                                      if (isSelected && isCorrect) buttonStyle = "border-emerald-500 bg-emerald-500/20 text-emerald-300 font-medium shadow-sm shadow-emerald-500/10";
+                                                      else if (isSelected && !isCorrect) buttonStyle = "border-red-500/50 bg-red-500/20 text-red-300 shadow-sm shadow-red-500/10";
+                                                      else if (!isSelected && isCorrect) buttonStyle = "border-emerald-500/50 bg-emerald-500/10 text-emerald-400 opacity-60";
+                                                      else buttonStyle = "border-white/10 opacity-40 text-slate-400";
                                                 }
 
                                                 return (
@@ -112,15 +112,15 @@ export function FreeExercise() {
                                                             onClick={() => handleSelectAnswer(idx)}
                                                             disabled={isAnswerRevealed}
                                                             className={cn(
-                                                                  "w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex justify-between items-center group",
+                                                                  "w-full text-left p-4 rounded-xl border transition-all duration-200 flex justify-between items-center group bg-white/5",
                                                                   buttonStyle
                                                             )}
                                                       >
                                                             <span className={cn("transition-transform group-hover:translate-x-1", isAnswerRevealed && "translate-x-0")}>
                                                                   {option.label}
                                                             </span>
-                                                            {isAnswerRevealed && isCorrect && <CheckCircle2 className="w-5 h-5 text-green-600 animate-in zoom-in" />}
-                                                            {isAnswerRevealed && isSelected && !isCorrect && <AlertCircle className="w-5 h-5 text-red-500 animate-in zoom-in" />}
+                                                            {isAnswerRevealed && isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-400 animate-in zoom-in" />}
+                                                            {isAnswerRevealed && isSelected && !isCorrect && <AlertCircle className="w-5 h-5 text-red-400 animate-in zoom-in" />}
                                                       </button>
                                                 );
                                           })}
@@ -128,18 +128,18 @@ export function FreeExercise() {
 
                                     {isAnswerRevealed && (
                                           <div className="mt-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                                <div className="mb-6 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-                                                      <p className="text-sm text-blue-800 font-medium flex items-center gap-2 mb-1">
+                                                <div className="mb-6 p-4 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+                                                      <p className="text-sm text-indigo-300 font-medium flex items-center gap-2 mb-1">
                                                             <Lock className="w-4 h-4" /> Explicação Detalhada
                                                       </p>
-                                                      <p className="text-sm text-blue-700/80 blur-[3px] select-none">
+                                                      <p className="text-sm text-indigo-200/60 blur-[3px] select-none">
                                                             A resposta correta é escolhida porque em francês usamos este termo específico neste período do dia. Existem exceções divertidas que você aprenderá...
                                                       </p>
                                                 </div>
 
                                                 <button
                                                       onClick={handleNextStep}
-                                                      className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-8 py-3.5 rounded-xl font-semibold transition-colors shadow-lg hover:shadow-xl"
+                                                      className="w-full flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold transition-colors shadow-lg shadow-indigo-500/25"
                                                 >
                                                       {currentStep === EXERCISE_QUESTIONS.length - 1 ? "Ver Minha Pontuação" : "Próxima Pergunta"} <ChevronRight className="w-5 h-5" />
                                                 </button>
@@ -149,24 +149,19 @@ export function FreeExercise() {
                         ) : (
                               <div className="animate-in fade-in zoom-in-95 duration-700 flex flex-col justify-center h-full max-w-md mx-auto relative z-10">
                                     <div className="text-center mb-8">
-                                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-4">
+                                          <div className="w-16 h-16 bg-emerald-500/20 border border-emerald-500/30 rounded-full flex items-center justify-center text-emerald-400 mx-auto mb-4">
                                                 <CheckCircle2 className="w-8 h-8" />
                                           </div>
-                                          <h4 className="text-2xl font-bold text-gray-900 mb-2">Excelente prática!</h4>
-                                          <p className="text-gray-500 text-sm">
+                                          <h4 className="text-2xl font-bold text-white mb-2">Excelente prática!</h4>
+                                          <p className="text-slate-300 text-sm">
                                                 Quer desbloquear as explicações detalhadas das suas respostas e ter acesso a exercícios ilimitados?
                                           </p>
                                     </div>
 
-                                    <div className="bg-white p-6 rounded-2xl border shadow-sm">
+                                    <div className="bg-slate-900/80 p-6 rounded-2xl border border-white/10 shadow-sm relative z-20">
                                           <RegisterForm />
                                     </div>
                               </div>
-                        )}
-
-                        {/* Decorational background when form is visible */}
-                        {isExerciseFinished && (
-                              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-white pointer-events-none rounded-r-3xl" />
                         )}
                   </div>
             </div>
