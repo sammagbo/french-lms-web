@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
-import { Info, Lightbulb, AlertTriangle, AlertOctagon, XOctagon } from "lucide-react";
+import { Info, Lightbulb, AlertTriangle, AlertOctagon, XOctagon, MessageSquare } from "lucide-react";
 import React from "react";
+
 
 /**
  * RichText acts as a wrapper to apply Tailwind Typography (prose) 
@@ -87,3 +88,54 @@ export function DocumentAlert({ variant, children, title, className }: AlertProp
             </div>
       );
 }
+
+/**
+ * Opal-inspired Vocabulary Card
+ */
+export function VocabularyCard({ word, translation, pronunciation }: {
+      word: string;
+      translation: string;
+      pronunciation?: string;
+}) {
+      return (
+            <div className="my-12 text-center space-y-4 not-prose">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold uppercase tracking-widest border border-blue-100 mb-2">
+                        Étude de Vocabulaire
+                  </div>
+                  <h2 className="text-6xl font-black text-slate-900 tracking-tight mb-0">
+                        {word}
+                  </h2>
+                  <div className="flex items-center justify-center gap-4 text-blue-400">
+                        <div className="h-px w-8 bg-blue-100" />
+                        <span className="text-xl font-medium uppercase tracking-widest">{translation}</span>
+                        <div className="h-px w-8 bg-blue-100" />
+                  </div>
+                  {pronunciation && (
+                        <p className="text-sm text-slate-400 italic">[{pronunciation}]</p>
+                  )}
+            </div>
+      );
+}
+
+/**
+ * Opal-inspired French Example Card
+ */
+export function FrenchExample({ french, portuguese }: {
+      french: string;
+      portuguese: string;
+}) {
+      return (
+            <div className="my-4 bg-slate-50/50 border-l-4 border-blue-600 rounded-r-2xl p-6 transition-all hover:bg-slate-50 shadow-sm relative overflow-hidden group not-prose">
+                  <div className="absolute top-0 right-0 p-2 opacity-5 scale-150 rotate-12 group-hover:scale-175 transition-transform duration-500">
+                        <MessageSquare className="w-12 h-12 text-blue-600" />
+                  </div>
+                  <p className="text-lg font-bold text-slate-900 mb-1 leading-tight">
+                        {french}
+                  </p>
+                  <p className="text-sm text-slate-500 italic">
+                        {portuguese}
+                  </p>
+            </div>
+      );
+}
+

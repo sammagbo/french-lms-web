@@ -14,6 +14,7 @@ import {
       LogOut,
       ClipboardList,
       BarChart3,
+      Wand2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -38,6 +39,7 @@ const studentItems = [
 
 // Links visíveis para TODOS no final
 const bottomItems = [
+      { label: 'IA Tools', href: '/dashboard/ai-tools', icon: Wand2 },
       { label: 'Comunidade', href: '/dashboard/community', icon: Users },
       { label: 'Configurações', href: '/dashboard/settings', icon: Settings },
 ];

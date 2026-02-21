@@ -10,9 +10,10 @@ import { cn } from '@/lib/utils';
 import { SubmissionForm } from '@/features/classroom/components/submission-form';
 import { FeedbackView } from '@/features/classroom/components/feedback-view';
 import Markdown from 'markdown-to-jsx';
-import { RichText, DocumentAlert } from '@/components/ui/rich-text';
+import { RichText, DocumentAlert, FrenchExample, VocabularyCard } from '@/components/ui/rich-text';
 
 export default function LessonPage() {
+
       const params = useParams();
       const courseId = params.courseId as string;
       const lessonId = params.lessonId as string;
@@ -57,7 +58,7 @@ export default function LessonPage() {
       }
 
       return (
-            <div className="flex flex-col min-h-full bg-gray-50/50">
+            <div className="flex flex-col min-h-full bg-opal-lesson">
                   {/* Main Video Area with Ambient Glow */}
                   <div className="w-full bg-zinc-950 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-blue-600/5 blur-3xl transition-opacity group-hover:opacity-20" />
@@ -79,21 +80,27 @@ export default function LessonPage() {
                         </div>
                   </div>
 
-                  {/* Content Area with Glass Effect */}
+                  {/* Content Area with Sheet Effect */}
                   <div className="mx-auto w-full max-w-4xl p-6 md:p-12 space-y-10">
                         <div className="space-y-2">
                               <span className="text-xs font-bold text-blue-600 uppercase tracking-[0.2em]">Aula Atual</span>
                               <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{currentLesson.title}</h1>
                         </div>
 
-                        {/* Lesson Content (Rich Document using bg-notebook) */}
-                        <div className="bg-notebook p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        {/* Lesson Content (Opal Sheet) */}
+                        <div className="bg-opal-sheet p-8 md:p-16 rounded-[40px] shadow-2xl shadow-slate-200/50">
                               {currentLesson.content ? (
                                     <RichText className="prose-lg text-slate-800 dark:text-slate-200 leading-relaxed">
                                           <Markdown options={{
                                                 overrides: {
                                                       DocumentAlert: {
                                                             component: DocumentAlert
+                                                      },
+                                                      FrenchExample: {
+                                                            component: FrenchExample
+                                                      },
+                                                      VocabularyCard: {
+                                                            component: VocabularyCard
                                                       }
                                                 }
                                           }}>
@@ -107,6 +114,7 @@ export default function LessonPage() {
                                     </p>
                               )}
                         </div>
+
 
                         {/* Activity Area - Premium Card */}
                         {assignment && (

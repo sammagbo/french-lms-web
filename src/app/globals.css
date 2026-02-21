@@ -47,6 +47,15 @@ body {
     background-position: -1px -1px;
   }
 
+  .bg-opal-lesson {
+    background-color: #f3e9dc;
+  }
+
+  .bg-opal-sheet {
+    @apply bg-white border border-slate-100;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  }
+
   .dark .bg-notebook {
     background-color: #0d121c;
     /* Very dark blue for dark mode */
