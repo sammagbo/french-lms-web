@@ -86,10 +86,10 @@ export default function LessonPage() {
                               <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{currentLesson.title}</h1>
                         </div>
 
-                        {/* Lesson Content (Rich Document) */}
-                        <div className="bg-white/60 p-8 rounded-3xl border border-white/80 shadow-sm backdrop-blur-[4px]">
+                        {/* Lesson Content (Rich Document using bg-notebook) */}
+                        <div className="bg-notebook p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
                               {currentLesson.content ? (
-                                    <RichText className="prose-lg text-gray-800 leading-relaxed">
+                                    <RichText className="prose-lg text-slate-800 dark:text-slate-200 leading-relaxed">
                                           <Markdown options={{
                                                 overrides: {
                                                       DocumentAlert: {

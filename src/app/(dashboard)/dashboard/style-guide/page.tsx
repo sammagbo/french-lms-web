@@ -8,7 +8,7 @@ export default function StyleGuidePage() {
                         <p className="text-gray-500 mt-2">Demonstração da réplica visual "Artifact" do assistente em uma página do LMS.</p>
                   </div>
 
-                  <div className="bg-white dark:bg-slate-900/50 p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-white/10">
+                  <div className="bg-notebook p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <RichText>
                               <h1>Lição 1: Bem-vindo à nova Leitura Interativa</h1>
                               <p>Bem-vindo a este guia demonstrativo. Aqui nós mostramos como o novo <strong>Renderizador de Documentos Ricos</strong> reproduz a experiência elegante e focada de leitura dos nossos artefatos (Artifacts).</p>

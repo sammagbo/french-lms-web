@@ -11,7 +11,7 @@ export default function LessonDemoPage() {
                         <p className="text-gray-500 mt-2">Plano de Aula A1 - Renderizado com Rich Document Style</p>
                   </div>
 
-                  <div className="bg-white dark:bg-slate-900/50 p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-white/10">
+                  <div className="bg-notebook p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <RichText>
                               <h2>📖 Parte 1: Teoria (Leçon)</h2>
                               <h3>O Verbo "Être" (Ser/Estar) e as Nacionalidades</h3>
