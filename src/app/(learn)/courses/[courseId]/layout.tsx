@@ -43,9 +43,9 @@ export default function CourseLayout({
       }
 
       return (
-            <div className="flex h-screen overflow-hidden">
+            <div className="min-h-screen bg-white">
                   {/* Mobile Header */}
-                  <div className="md:hidden fixed top-0 w-full h-14 border-b bg-white flex items-center justify-between px-4 z-40">
+                  <div className="md:hidden fixed top-0 left-0 right-0 h-14 border-b bg-white flex items-center justify-between px-4 z-40 shadow-sm">
                         <span className="font-semibold truncate max-w-[200px]">{course.title}</span>
                         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                               <Menu className="h-6 w-6" />
@@ -54,9 +54,9 @@ export default function CourseLayout({
 
                   {/* Sidebar (Desktop + Mobile Drawer Logic) */}
                   <aside className={`
-        fixed inset-y-0 left-0 z-50 w-80 transform bg-white transition-transform duration-200 ease-in-out md:relative md:translate-x-0 border-r
-        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-      `}>
+                        fixed inset-y-0 left-0 z-50 w-80 transform bg-white transition-transform duration-200 ease-in-out border-r
+                        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+                  `}>
                         <CourseSidebar course={course} />
                   </aside>
 
@@ -68,8 +68,8 @@ export default function CourseLayout({
                         />
                   )}
 
-                  {/* Main Content */}
-                  <main className="flex-1 overflow-y-auto pt-14 md:pt-0 bg-white">
+                  {/* Main Content (uses Native Window Scrolling) */}
+                  <main className="md:ml-80 pt-14 md:pt-0 min-h-screen flex flex-col">
                         {children}
                   </main>
             </div>
