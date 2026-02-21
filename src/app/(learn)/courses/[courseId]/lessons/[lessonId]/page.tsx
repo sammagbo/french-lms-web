@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SubmissionForm } from '@/features/classroom/components/submission-form';
 import { FeedbackView } from '@/features/classroom/components/feedback-view';
+import Markdown from 'markdown-to-jsx';
+import { RichText, DocumentAlert } from '@/components/ui/rich-text';
 
 export default function LessonPage() {
       const params = useParams();
@@ -84,10 +86,20 @@ export default function LessonPage() {
                               <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{currentLesson.title}</h1>
                         </div>
 
-                        {/* Lesson Content (Text/HTML) */}
-                        <div className="prose prose-lg prose-blue max-w-none text-gray-700 leading-relaxed bg-white/40 p-8 rounded-3xl border border-white/60 shadow-sm backdrop-blur-[2px]">
+                        {/* Lesson Content (Rich Document) */}
+                        <div className="bg-white/60 p-8 rounded-3xl border border-white/80 shadow-sm backdrop-blur-[4px]">
                               {currentLesson.content ? (
-                                    <div dangerouslySetInnerHTML={{ __html: currentLesson.content }} />
+                                    <RichText className="prose-lg text-gray-800 leading-relaxed">
+                                          <Markdown options={{
+                                                overrides: {
+                                                      DocumentAlert: {
+                                                            component: DocumentAlert
+                                                      }
+                                                }
+                                          }}>
+                                                {currentLesson.content}
+                                          </Markdown>
+                                    </RichText>
                               ) : (
                                     <p className="text-zinc-400 italic flex items-center gap-2">
                                           <BookOpen className="h-5 w-5 opacity-50" />
