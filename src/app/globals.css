@@ -56,6 +56,10 @@ body {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
   }
 
+  .shadow-opal {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  }
+
   .dark .bg-notebook {
     background-color: #0d121c;
     /* Very dark blue for dark mode */

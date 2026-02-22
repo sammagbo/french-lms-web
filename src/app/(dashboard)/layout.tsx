@@ -32,13 +32,13 @@ export default function DashboardLayout({
 
       return (
             <AuthGuard>
-                  <div className="flex h-screen overflow-hidden bg-gray-100">
+                  <div className="flex h-screen overflow-hidden bg-opal-lesson">
                         <Sidebar />
 
                         {/* Main Content Area */}
                         <div className="flex flex-1 flex-col overflow-hidden">
                               {/* Header */}
-                              <header className="flex h-16 items-center justify-between border-b bg-white/80 backdrop-blur-md px-6 shadow-sm z-10">
+                              <header className="flex h-16 items-center justify-between border-b border-gray-200/50 bg-white/40 backdrop-blur-md px-6 z-10">
                                     <button className="text-gray-500 hover:text-gray-700 md:hidden transition-colors">
                                           <Menu className="h-6 w-6" />
                                     </button>

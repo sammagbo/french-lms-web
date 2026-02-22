@@ -39,12 +39,12 @@ export default function DashboardPage() {
       }
 
       return (
-            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                  <div className="flex flex-col gap-1">
-                        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+            <div className="max-w-7xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
+                  <div className="flex flex-col gap-3">
+                        <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl">
                               Bem-vindo, <span className="text-blue-600">Alumni</span>
                         </h1>
-                        <p className="text-lg text-gray-500 max-w-2xl">
+                        <p className="text-xl text-slate-500 max-w-2xl leading-relaxed">
                               Continue sua jornada de aprendizado ou explore novos horizontes na língua francesa.
                         </p>
                   </div>
